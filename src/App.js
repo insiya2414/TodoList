@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import Typography from "@material-ui/core/Typography";
 
 const LOCAL_STORAGE_KEY = "react-todo-list-todos";
 
@@ -30,11 +31,11 @@ function App() {
 
   function toggleComplete(id) {
     setTodos(
-      todos.map((todo) => {
+      todos.map(todo => {
         if (todo.id === id) {
           return {
             ...todo,
-            completed: !todo.completed,
+            completed: !todo.completed
           };
         }
         return todo;
@@ -42,13 +43,25 @@ function App() {
     );
   }
 
+  function removeTodo(id){
+    setTodos(todos.filter(todo => todo.id !== id));
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>React Todo</p>
+      {/* <header className="App-header"> */}
+      <Typography style={{ padding: 16 }}variant ="h1">
+        React Todo
+        </Typography>
+        {/* <p>React Todo</p> */}
         <TodoForm addTodo={addTodo} />
-        <TodoList todos={todos} toggleComplete={toggleComplete} />
-      </header>
+        <TodoList 
+        todos={todos} 
+        toggleComplete={toggleComplete}
+        removeTodo={removeTodo} 
+        />
+      {/* </header> */}
     </div>
   );
 }
