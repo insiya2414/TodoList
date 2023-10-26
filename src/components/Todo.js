@@ -36,7 +36,7 @@ function handleRemoveClick(){
         {/* </li> */}
         </Typography>
       
-      <IconButton onCLick ={ handleRemoveClick}>
+      <IconButton onClick={handleRemoveClick}>
         <CloseIcon/>
       </IconButton>
       </ListItem>

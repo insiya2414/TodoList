@@ -9,6 +9,7 @@ const LOCAL_STORAGE_KEY = "react-todo-list-todos";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [remove, setRemove] = useState(false);
 
   useEffect(() => {
     const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -19,11 +20,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (todos.length) {
+    if (todos.length && !remove) {
       console.log("todos", Object.values(todos[0]));
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
     }
-  }, [todos]);
+    if (remove) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+      setRemove(false);
+    }
+  }, [todos, remove]);
 
   function addTodo(todo) {
     setTodos([todo, ...todos]);
@@ -44,8 +49,9 @@ function App() {
   }
 
   function removeTodo(id){
+    console.log('inside remove todo');
     setTodos(todos.filter(todo => todo.id !== id));
-
+    setRemove(true);
   }
 
   return (
